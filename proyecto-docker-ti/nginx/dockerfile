@@ -1,0 +1,21 @@
+# 1. Imagen base oficial ligera
+FROM node:20-alpine
+
+# 2. Directorio de trabajo interno
+WORKDIR /usr/src/app
+
+# 3. Copiar manifiestos e instalar dependencias de producción
+COPY package*.json ./
+RUN npm ci --only=production
+
+# 4. Copiar el código fuente hacia el contenedor
+COPY ./src ./src
+
+# 5. CONFIGURACIÓN DE SEGURIDAD: Cambiar a usuario sin privilegios
+USER node
+
+# 6. Exponer el puerto interno de la API
+EXPOSE 8000
+
+# 7. Comando para arrancar el backend
+CMD ["npm", "start"]

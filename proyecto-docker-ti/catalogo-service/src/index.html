@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Catálogo</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f5f5;
+padding:40px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+button{
+background:#2563eb;
+color:white;
+border:none;
+padding:10px;
+width:100%;
+}
+
+</style>
+
+</head>
+<body>
+
+<h1>📚 Catálogo de Cursos</h1>
+
+<div class="grid">
+
+<div class="card">
+<h3>Álgebra Lineal</h3>
+<p>12 módulos</p>
+<button>Inscribirse</button>
+</div>
+
+<div class="card">
+<h3>Programación en C</h3>
+<p>15 módulos</p>
+<button>Inscribirse</button>
+</div>
+
+<div class="card">
+<h3>Bases de Datos</h3>
+<p>14 módulos</p>
+<button>Inscribirse</button>
+</div>
+
+<div class="card">
+<h3>Redes</h3>
+<p>10 módulos</p>
+<button>Inscribirse</button>
+</div>
+
+</div>
+
+</body>
+</html>

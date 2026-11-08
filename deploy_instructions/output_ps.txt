@@ -1,0 +1,218 @@
+PS C:\Users\Diego\Downloads\infra> scp -O -i $LLAVE -r keys/ "ubuntu@$($IP):/home/ubuntu"
+backups-multicloud-500206-5f8fb2b9e436.json                        100% 2403    18.5KB/s   00:00
+diegoaws_accessKeys.csv                                            100%   99     0.8KB/s   00:00
+PS C:\Users\Diego\Downloads\infra> scp -O -i $LLAVE -r proyecto-docker-ti/ "ubuntu@$($IP):/home/ubuntu"
+.env                                                               100%  281     2.1KB/s   00:00
+Dockerfile                                                         100%   72     0.5KB/s   00:00
+index.html                                                         100%  930     7.0KB/s   00:00
+Dockerfile                                                         100%   72     0.6KB/s   00:00
+index.html                                                         100%  930     7.0KB/s   00:00
+docker-compose.yml                                                 100% 1248     9.5KB/s   00:00
+dockerfile                                                         100%   72     0.5KB/s   00:00
+index.html                                                         100% 1224     9.3KB/s   00:00
+dockerfile                                                         100%  484     3.7KB/s   00:00
+Dockerfile                                                         100%   72     0.5KB/s   00:00
+index.html                                                         100% 1962    14.6KB/s   00:00
+PS C:\Users\Diego\Downloads\infra> scp -O -i $LLAVE backup-to-gcp.sh "ubuntu@$($IP):/home/ubuntu"
+backup-to-gcp.sh                                                   100%  990     7.6KB/s   00:00
+PS C:\Users\Diego\Downloads\infra> ssh -i $LLAVE ubuntu@$IP
+Welcome to Ubuntu 22.04.5 LTS (GNU/Linux 6.8.0-1057-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Wed Jun 24 04:17:15 UTC 2026
+
+  System load:  0.0               Processes:             113
+  Usage of /:   36.3% of 7.57GB   Users logged in:       0
+  Memory usage: 30%               IPv4 address for ens5: 172.31.1.121
+  Swap usage:   0%
+
+
+Expanded Security Maintenance for Applications is not enabled.
+
+6 updates can be applied immediately.
+6 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+9 additional security updates can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+New release '24.04.4 LTS' available.
+Run 'do-release-upgrade' to upgrade to it.
+
+
+VM configurada con éxito: Docker, AWS CLI y GCloud CLI instalados.
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+ubuntu@ip-172-31-1-121:~$ cd /home/ubuntu/proyecto-docker-ti/
+ubuntu@ip-172-31-1-121:~/proyecto-docker-ti$ docker compose up -d
+[+] Building 4.3s (27/27) FINISHED
+ => [internal] load local bake definitions                                                      0.0s
+ => => reading from stdin 2.15kB                                                                0.0s
+ => [frontend-service internal] load build definition from dockerfile                           0.1s
+ => => transferring dockerfile: 109B                                                            0.0s
+ => [users-service internal] load build definition from Dockerfile                              0.1s
+ => => transferring dockerfile: 109B                                                            0.0s
+ => [content-service internal] load build definition from Dockerfile                            0.1s
+ => => transferring dockerfile: 109B                                                            0.0s
+ => [catalogo-service internal] load build definition from Dockerfile                           0.1s
+ => => transferring dockerfile: 109B                                                            0.0s
+ => [frontend-service internal] load metadata for docker.io/library/nginx:alpine                0.6s
+ => [catalogo-service internal] load .dockerignore                                              0.1s
+ => => transferring context: 2B                                                                 0.0s
+ => [content-service internal] load .dockerignore                                               0.1s
+ => => transferring context: 2B                                                                 0.0s
+ => [frontend-service internal] load .dockerignore                                              0.1s
+ => => transferring context: 2B                                                                 0.0s
+ => [users-service internal] load .dockerignore                                                 0.1s
+ => => transferring context: 2B                                                                 0.0s
+ => [frontend-service internal] load build context                                              0.1s
+ => => transferring context: 1.29kB                                                             0.0s
+ => [catalogo-service 1/2] FROM docker.io/library/nginx:alpine@sha256:1a8724a52d432501548a8d86  2.0s
+ => => resolve docker.io/library/nginx:alpine@sha256:1a8724a52d432501548a8d8681bb1554c2d09778f  0.1s
+ => => sha256:01bf363d61e6136ebd7dcaf74b303bd08ee8f849a04e2c0be5a8d03159b404f6 1.40kB / 1.40kB  0.1s
+ => => sha256:ab1fd90497517c799d4fb351bc1a7ae8b58e231345d4948ae8ac73c75b320b35 405B / 405B      0.0s
+ => => sha256:ce42635eeddd348e8266227a36db92cea8a45d5177d03e9a922a7bfb25762b7f 1.21kB / 1.21kB  0.1s
+ => => sha256:967885d218c57d3ce2a4e906131fb25f59e6f56cce51d87dde7d74b0e7465675 955B / 955B      0.0s
+ => => sha256:5b429a43b8dfa079c3ac95537bd88d5f1ac70e478c64f100b8ef6aa9c555ebc2 628B / 628B      0.1s
+ => => sha256:c75b9c33e8b0983941fe03793379bd5d137f641f92b4a94d1c8956d28ba77f 20.25MB / 20.25MB  1.0s
+ => => sha256:c16defe09b2f86b04c4143bb610095be90732794fce5c56fb7185f02feadd879 1.89MB / 1.89MB  0.1s
+ => => sha256:e6f31ffc071e5560b82a8685fba8214954e5721e3e49269d00958316edbe89fe 3.84MB / 3.84MB  0.1s
+ => => extracting sha256:e6f31ffc071e5560b82a8685fba8214954e5721e3e49269d00958316edbe89fe       0.2s
+ => => extracting sha256:c16defe09b2f86b04c4143bb610095be90732794fce5c56fb7185f02feadd879       0.1s
+ => => extracting sha256:5b429a43b8dfa079c3ac95537bd88d5f1ac70e478c64f100b8ef6aa9c555ebc2       0.0s
+ => => extracting sha256:967885d218c57d3ce2a4e906131fb25f59e6f56cce51d87dde7d74b0e7465675       0.0s
+ => => extracting sha256:ab1fd90497517c799d4fb351bc1a7ae8b58e231345d4948ae8ac73c75b320b35       0.0s
+ => => extracting sha256:ce42635eeddd348e8266227a36db92cea8a45d5177d03e9a922a7bfb25762b7f       0.0s
+ => => extracting sha256:01bf363d61e6136ebd7dcaf74b303bd08ee8f849a04e2c0be5a8d03159b404f6       0.0s
+ => => extracting sha256:c75b9c33e8b0983941fe03793379bd5d137f641f92b4a94d1c8956d28ba77f65       0.6s
+ => [users-service internal] load build context                                                 0.1s
+ => => transferring context: 2.03kB                                                             0.0s
+ => [catalogo-service internal] load build context                                              0.1s
+ => => transferring context: 1.00kB                                                             0.0s
+ => [content-service internal] load build context                                               0.1s
+ => => transferring context: 1.00kB                                                             0.0s
+ => [catalogo-service 2/2] COPY src/index.html /usr/share/nginx/html/                           0.2s
+ => [frontend-service 2/2] COPY src/index.html /usr/share/nginx/html/                           0.2s
+ => [content-service 2/2] COPY src/index.html /usr/share/nginx/html/                            0.2s
+ => [users-service 2/2] COPY src/index.html /usr/share/nginx/html/                              0.2s
+ => [frontend-service] exporting to image                                                       0.8s
+ => => exporting layers                                                                         0.3s
+ => => exporting manifest sha256:c7396bf64e5ceb30f1bca24a4b76f0b0c1ac839ff28568055ee7202b461c9  0.1s
+ => => exporting config sha256:c12c17b3cf301cb7f2a271d17d95eb81edbe9f72d0c0922a9d9cc7b82445bbf  0.1s
+ => => exporting attestation manifest sha256:6937595fc50041729505f8591d8c95ea9f58b6ae93101f3d6  0.1s
+ => => exporting manifest list sha256:aef6ebc8669c5d509eacaf7074d499eb1e6d0a68576c30ebb82878d9  0.1s
+ => => naming to docker.io/library/proyecto-docker-ti-frontend-service:latest                   0.0s
+ => => unpacking to docker.io/library/proyecto-docker-ti-frontend-service:latest                0.1s
+ => [users-service] exporting to image                                                          0.8s
+ => => exporting layers                                                                         0.3s
+ => => exporting manifest sha256:58f501066569d7ae3e3fcef28f0e72cbf3271f72c30d96d5aa85e0d304ae6  0.1s
+ => => exporting config sha256:615e5adedd7c0152ccad6be007dea9b7fdd6fe5bad6b734e91bb37b42c10d38  0.1s
+ => => exporting attestation manifest sha256:8b83e5efee2658f5f0efc16b320d2e99f046f1613c3ce3164  0.1s
+ => => exporting manifest list sha256:6c9e7b1bac82d7392798e4d38b6ced769521f770a0fc11e4639402df  0.0s
+ => => naming to docker.io/library/proyecto-docker-ti-users-service:latest                      0.0s
+ => => unpacking to docker.io/library/proyecto-docker-ti-users-service:latest                   0.1s
+ => [content-service] exporting to image                                                        0.7s
+ => => exporting layers                                                                         0.2s
+ => => exporting manifest sha256:5e327970c2e099c012fafb98a238d22b857ad11455dde6360624803cd3145  0.0s
+ => => exporting config sha256:c4a311034ef8e37cd503750e4e1e66a0da20f1719e0489ba5ef4f25b2d413de  0.1s
+ => => exporting attestation manifest sha256:110f692126013b13c93af0f593859b9e74c79399ea3648af0  0.1s
+ => => exporting manifest list sha256:c440f497ba6ce7f142002f2bdb68a2f9645a467b42bd1ab2c00bfd7d  0.1s
+ => => naming to docker.io/library/proyecto-docker-ti-content-service:latest                    0.0s
+ => => unpacking to docker.io/library/proyecto-docker-ti-content-service:latest                 0.1s
+ => [catalogo-service] exporting to image                                                       0.7s
+ => => exporting layers                                                                         0.2s
+ => => exporting manifest sha256:8ba3e65b35682d6f176ea0df4dbf0753107e7658c703f1e1d54842bb5dab4  0.1s
+ => => exporting config sha256:8f26094bd8b2c18cb5a5a950bac62699d8d698da7661fd393de0eb46af16e95  0.1s
+ => => exporting attestation manifest sha256:e2fc4f4dc0b5f64a86e42770464622a9d295f636d7a5e8d96  0.1s
+ => => exporting manifest list sha256:8cb90c7d4f0df290d5ec6397515089ebd0d58f237ecd954aaf7e8dba  0.0s
+ => => naming to docker.io/library/proyecto-docker-ti-catalogo-service:latest                   0.0s
+ => => unpacking to docker.io/library/proyecto-docker-ti-catalogo-service:latest                0.1s
+ => [frontend-service] resolving provenance for metadata file                                   0.1s
+ => [catalogo-service] resolving provenance for metadata file                                   0.1s
+ => [content-service] resolving provenance for metadata file                                    0.1s
+ => [users-service] resolving provenance for metadata file                                      0.0s
+[+] up 9/9
+ ✔ Image proyecto-docker-ti-users-service    Built                                               4.4s
+ ✔ Image proyecto-docker-ti-catalogo-service Built                                               4.4s
+ ✔ Image proyecto-docker-ti-content-service  Built                                               4.4s
+ ✔ Image proyecto-docker-ti-frontend-service Built                                               4.4s
+ ✔ Network proyecto-docker-ti_default        Created                                             0.1s
+ ✔ Container catalogo-service                Started                                             0.9s
+ ✔ Container content-service                 Started                                             0.8s
+ ✔ Container frontend-service                Started                                             1.0s
+ ✔ Container users-service                   Started                                             0.9s
+ubuntu@ip-172-31-1-121:~/proyecto-docker-ti$ docker ps
+CONTAINER ID   IMAGE                                 COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+a6d7dee41a23   proyecto-docker-ti-users-service      "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   users-service
+de6d4e7af7c1   proyecto-docker-ti-catalogo-service   "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   0.0.0.0:8081->80/tcp, [::]:8081->80/tcp   catalogo-service
+ff9fccd925e2   proyecto-docker-ti-frontend-service   "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   0.0.0.0:8000->80/tcp, [::]:8000->80/tcp   frontend-service
+6e6b65a88dda   proyecto-docker-ti-content-service    "/docker-entrypoint.…"   7 seconds ago   Up 6 seconds   0.0.0.0:8082->80/tcp, [::]:8082->80/tcp   content-service
+ubuntu@ip-172-31-1-121:~/proyecto-docker-ti$ cd /home/ubuntu/
+ubuntu@ip-172-31-1-121:~$ chmod +x backup-to-gcp.sh
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+-bash: ./backup-to-gcp.sh: /bin/bash^M: bad interpreter: No such file or directory
+ubuntu@ip-172-31-1-121:~$ ls
+backup-to-gcp.sh  keys  proyecto-docker-ti
+ubuntu@ip-172-31-1-121:~$ /backup-to-gcp.sh
+-bash: /backup-to-gcp.sh: No such file or directory
+ubuntu@ip-172-31-1-121:~$ backup-to-gcp.sh
+backup-to-gcp.sh: command not found
+ubuntu@ip-172-31-1-121:~$ .backup-to-gcp.sh
+.backup-to-gcp.sh: command not found
+ubuntu@ip-172-31-1-121:~$ .backup-to-gcp
+.backup-to-gcp: command not found
+ubuntu@ip-172-31-1-121:~$ /backup-to-gcp
+-bash: /backup-to-gcp: No such file or directory
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+-bash: ./backup-to-gcp.sh: /bin/bash^M: bad interpreter: No such file or directory
+ubuntu@ip-172-31-1-121:~$ sed -i 's/\r$//' backup-to-gcp.sh
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+/home/ubuntu/proyecto-docker-ti/.env: line 1: $'﻿DB_HOST=edtech-db-instance.ckjagi4ekqh0.us-east-1.rds.amazonaws.com:5432\r': command not found
+ubuntu@ip-172-31-1-121:~$ sed -i '1s/^\xef\xbb\xbf//' /home/ubuntu/proyecto-docker-ti/.env
+ubuntu@ip-172-31-1-121:~$ sed -i 's/\r$//' /home/ubuntu/proyecto-docker-ti/.env
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+tar: /mnt/data: Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+ubuntu@ip-172-31-1-121:~$ sudo mkdir -p /mnt/data
+ubuntu@ip-172-31-1-121:~$ sudo chown -R ubuntu:ubuntu /mnt/data
+ubuntu@ip-172-31-1-121:~$ echo "Prueba de respaldo EdTech" > /mnt/data/evidencia.txt
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+upload failed: ../../tmp/local_backups/edtech_backup_20260624_042354.tar.gz to s3://pi-backup-u56ogv9q/edtech_backup_20260624_042354.tar.gz Unable to locate credentials
+ubuntu@ip-172-31-1-121:~$ aws configure
+AWS Access Key ID [None]: [REDACTED]
+AWS Secret Access Key [None]: [REDACTED]
+Default region name [None]: us-east-1
+Default output format [None]: json
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+upload: ../../tmp/local_backups/edtech_backup_20260624_042556.tar.gz to s3://pi-backup-u56ogv9q/edtech_backup_20260624_042556.tar.gz
+./backup-to-gcp.sh: line 30: gcloud: command not found
+ubuntu@ip-172-31-1-121:~$ # 1. Instalar el paquete oficial de Google Cloud CLI
+google-cloud-cli 574.0.0 from Cloud SDK (google-cloud-sdk✓) installed
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+upload: ../../tmp/local_backups/edtech_backup_20260624_042708.tar.gz to s3://pi-backup-u56ogv9q/edtech_backup_20260624_042708.tar.gz
+ERROR: (gcloud.storage.cp) You do not currently have an active account selected.
+Please run:
+
+  $ gcloud auth login
+
+to obtain new credentials.
+
+If you have already logged in with a different account, run:
+
+  $ gcloud config set account ACCOUNT
+
+to select an already authenticated account to use.
+ubuntu@ip-172-31-1-121:~$ gcloud auth activate-service-account --key-file=/home/ubuntu/keys/backups-multicloud-500206-5f8fb2b9e436.json
+Activated service account credentials for: [sa-backup-storage@backups-multicloud-500206.iam.gserviceaccount.com]
+ubuntu@ip-172-31-1-121:~$ ./backup-to-gcp.sh
+upload: ../../tmp/local_backups/edtech_backup_20260624_042843.tar.gz to s3://pi-backup-u56ogv9q/edtech_backup_20260624_042843.tar.gz
+Copying file:///tmp/local_backups/edtech_backup_20260624_042843.tar.gz to gs://backups-multicloud-backups-multicloud-500206-pi-dr-backup/edtech_backup_20260624_042843.tar.gz
+  Completed files 1/1 | 182.0B/182.0B
+ubuntu@ip-172-31-1-121:~$ exit
+logout
+Connection to 98.80.192.96 closed.
+PS C:\Users\Diego\Downloads\infra> terraform destroy

@@ -1,0 +1,18 @@
+# Copia este archivo como terraform.tfvars y completa los valores requeridos.
+
+# Google Cloud
+gcp_project = "YOUR_GCP_PROJECT_ID"
+
+# IP pública autorizada para acceder por SSH (formato CIDR)
+my_ip = "YOUR_PUBLIC_IP/32"
+
+# Par de claves SSH
+key_name        = "pi-key"
+public_key_path = "PATH_TO_YOUR_PUBLIC_KEY"
+
+# Ruta local al archivo JSON de credenciales de Google Cloud
+gcp_credentials_path = "keys/gcp-key.json"
+
+# Variables opcionales: si se omiten, se utilizan los valores por defecto
+# aws_region = "us-east-1"
+# gcp_region = "us-central1"

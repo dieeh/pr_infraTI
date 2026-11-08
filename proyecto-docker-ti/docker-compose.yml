@@ -1,0 +1,51 @@
+services:
+  # Frontend web principal
+  frontend-service:
+    build: ./frontend-service
+    container_name: frontend-service
+    ports:
+      - "8000:80"
+    restart: always
+
+  # Microservicio de usuarios (RDS)
+  users-service:
+    build: ./users-service
+    container_name: users-service
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=5432
+      - DB_NAME=edtech
+      - DB_USER=db_admin
+      - DB_PASSWORD=REPLACE_WITH_DB_PASSWORD
+    restart: always
+
+  # Microservicio de catálogo (RDS)
+  catalogo-service:
+    build: ./catalogo-service
+    container_name: catalogo-service
+    ports:
+      - "8081:80"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=5432
+      - DB_NAME=edtech
+      - DB_USER=db_admin
+      - DB_PASSWORD=REPLACE_WITH_DB_PASSWORD
+    restart: always
+
+  # Microservicio de contenidos (S3, CloudFront y MediaConvert)
+  content-service:
+    build: ./content-service
+    container_name: content-service
+    ports:
+      - "8082:80"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - AWS_S3_BUCKET=${S3_BUCKET}
+      #- CDN_URL=${CDN_URL}
+      # Variable para MediaConvert (el endpoint de la región)
+      #- MEDIACONVERT_ENDPOINT=${MEDIACONVERT_ENDPOINT}
+      - AWS_REGION=us-east-1
+    restart: always

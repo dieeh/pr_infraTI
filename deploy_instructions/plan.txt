@@ -1,0 +1,59 @@
+# 1. Entrar a tu carpeta de infraestructura (En Windows se usan barras invertidas)
+cd C:\Users\Diego\Downloads\infra\
+
+curl icanhazip.com
+
+# 2. Ejecutar el script generador (.sh)
+# PowerShell no corre scripts de Linux de forma nativa. Necesitas llamarlo a través de 'bash'
+# (esto funciona si tienes Git Bash instalado, que es lo normal)
+bash ./generate_env.sh
+
+# 3. Definir variables en PowerShell (Se usa el signo $ para crearlas y asignarlas)
+# ⚠️ OJO DIEGO: Pusiste un archivo .csv en la llave. El comando scp/ssh necesita tu clave PRIVADA de SSH (ej: pi-key), NO el csv con las contraseñas de AWS.
+# Según tus archivos, tu clave debería estar en tu carpeta .ssh:
+$LLAVE = "C:\Users\Diego\.ssh\pi-key"
+$IP = 123.456.789.0 # <- Cambia esto por la IP real que te escupió el terraform output
+
+# 4. Subir carpeta de llaves GCP mediante SCP
+scp -O -i $LLAVE -r keys/ ubuntu@${IP}:/home/ubuntu/
+
+# 5. Subir proyecto Docker (Ya contiene el .env actualizado)
+scp -O -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $LLAVE -r proyecto-docker-ti/ ubuntu@${IP}:/home/ubuntu/
+scp -O -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $LLAVE -r keys/ ubuntu@${IP}:/home/ubuntu/
+# 6. Subir el script de respaldo
+scp -O -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $LLAVE backup-to-gcp.sh ubuntu@${IP}:/home/ubuntu/
+
+# 7. Conectarse a la VM de AWS por SSH
+ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $LLAVE ubuntu@$IP
+
+# --- [YA ESTÁS DENTRO DE LA VM DE AWS - AQUÍ VUELVE A SER BASH] ---
+
+sudo snap install google-cloud-cli --classic
+gcloud auth activate-service-account --key-file=/home/ubuntu/keys/gcp-key.json
+
+# 1. Entrar a la carpeta del proyecto
+cd /home/ubuntu/proyecto-docker-ti/
+
+# 2. Encender los contenedores de Docker en segundo plano
+docker compose up -d
+
+# 3. Validar que todo levantó correctamente (Debe mostrarte los contenedores corriendo)
+docker ps
+
+
+# 1. Volver a la raíz del usuario e ir por el script de respaldo
+cd /home/ubuntu/
+chmod +x backup-to-gcp.sh
+
+sed -i '1s/^\xef\xbb\xbf//' /home/ubuntu/proyecto-docker-ti/.env
+sed -i 's/\r$//' /home/ubuntu/proyecto-docker-ti/.env
+
+sed -i 's/\r$//' backup-to-gcp.sh
+
+# 2. Ejecutar el script de respaldo manualmente para probar que funcione a la primera
+./backup-to-gcp.sh
+
+# 3. Abrir el configurador de tareas programadas (Cron) para dejarlo automático
+crontab -e
+
+0 3 * * * /home/ubuntu/backup-to-gcp.sh >> /home/ubuntu/backup-to-gcp.log 2>&1
